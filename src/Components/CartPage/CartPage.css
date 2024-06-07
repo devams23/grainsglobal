@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.cart-heading{
+
+    padding: 50px;
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.328);
+
+}
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin: 30px 30px 0px 30px;
+    
+}
+
+.cart-items {
+    flex: 1;
+    padding-right: 20px;
+    justify-content: center;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    gap: 20px; /* Space between elements */
+
+    border-bottom: 1px solid #ffffff4c;
+}
+
+.cart-item hr {
+    width: 100%;
+    border: 1px solid #fff;
+    margin-bottom: 10px;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 20px; /* Space between text elements */
+}
+
+.order-summary {
+    position: sticky;
+    flex: 0 0 35%;
+    padding: 20px;
+    background-color: #1F603C;
+    border-radius: 10px;
+    top: 20px;
+    height: max-content;
+    border: 1px solid #ffffff4c;
+    margin-bottom: 400px;
+  
+}
+
+.order-summary h2 {
+    margin-top: 0;
+}
+
+.order-summary hr {
+    border: 1px solid #fff;
+    margin: 20px 0;
+}
+
+.bottom-nav {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #d8a227;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 10px black;
+}
+
+.bottom-nav span {
+    display: flex;
+    align-items: center;
+}
+
+.bottom-nav button {
+    padding: 10px 20px;
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .cart-container {
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+    }
+    .cart-items {
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+    }
+    .order-summary {
+        position: relative;
+        margin: 20px;
+        width: 100%;
+        top: auto;
+    }
+    .bottom-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px 20px;
+    }
+    .bottom-nav span,
+    .bottom-nav div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        margin-top: 10px;
+       
+    }
+    .bottom-nav button{
+        margin-left: 0px;
+    }
+    .bottom-nav span{
+        display: none;
+    }
+    .cart-heading h1{
+        text-align: center;
+    }
+}

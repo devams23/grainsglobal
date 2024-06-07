@@ -1,0 +1,151 @@
+.navvbar {
+  background-color: #d8a227;
+  padding: 10px 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: 0px 10px 10px;
+  box-shadow: 1px 3px 10px #000000;
+}
+
+.navvbar-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  size: 1em;
+}
+
+.navvbar-links {
+  display: flex;
+  gap: 15px;
+  margin-right: 10px;
+  font-size: 1em;
+}
+
+.navvbar-links a:hover {
+  text-decoration: underline;
+  color: #1f603c;
+}
+
+.navvbar-links a {
+  color: #2c6c44;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.navvbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#cartlink {
+  text-decoration: none;
+}
+
+.cart {
+  position: relative; /* Make cart container relative */
+  margin-right: 10px;
+}
+
+.cart-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-color: #1f603c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.notification-circle {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.cart svg {
+  font-size: 1.5em;
+  color: #2c6c44;
+}
+
+.login-button {
+  background-color: #daa520;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid #1f603c;
+  color: #2c6c44;
+  text-decoration: none;
+
+}
+
+.menu-icon {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2c6c44;
+  font-size: 24px;
+}
+
+.navvbar-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  justify-content: center; /* Center menu icon */
+}
+
+.navvbar-mobile a {
+  color: #2c6c44;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.login-button:hover {
+  background-color: #2c6c44;
+  color: white;
+  border: 1px solid #daa520;
+}
+
+@media (max-width: 768px) {
+  .navvbar-links {
+    display: none;
+  }
+  .menu-icon {
+    display: flex;
+  }
+  .navvbar-mobile {
+    display: flex;
+  }
+}
+
+/* CSS for large screens */
+@media (min-width: 768px) {
+  .login-button-large-screen {
+    display: block;
+  }
+}
+
+/* CSS for small screens */
+@media (max-width: 767px) {
+  .login-button-large-screen {
+    display: none;
+  }
+  .login-link-mobile {
+    display: block;
+  }
+}

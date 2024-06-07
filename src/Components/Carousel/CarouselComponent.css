@@ -1,0 +1,59 @@
+/* Slideshow */
+
+.slideshow {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 10px;
+}
+
+.slideshowSlider {
+  display: flex;  /* Changed from white-space: nowrap to flexbox */
+  transition: ease 1000ms;
+}
+
+.slide {
+  flex: 0 0 100%;  /* Flex basis to ensure each slide takes full width */
+  position: relative;  /* Position relative to use absolute positioning for the image */
+  border-radius: 40px;
+  overflow: hidden;  /* Ensure no overflow from border radius */
+}
+
+.slide::before {
+  content: '';
+  display: block;
+  padding-top: 50%;  /* Default aspect ratio (50% for 2:1) */
+}
+
+.slide img {
+  position: absolute;  /* Position absolute to fit inside the slide container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* Ensure the image covers the container without being distorted */
+  animation: zoomIn 2s ease-in-out;  /* Animation for zooming in */
+}
+
+/* Keyframes for zoom-in effect */
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+/* Media Queries for Different Screen Sizes */
+@media (min-width: 768px) {
+  .slide::before {
+    padding-top: 33.33%;  /* Aspect ratio for tablets (3:1) */
+  }
+}
+
+@media (min-width: 1024px) {
+  .slide::before {
+    padding-top: 25%;  /* Aspect ratio for desktops (4:1) */
+  }
+}
