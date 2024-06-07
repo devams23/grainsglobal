@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-
+import { NavLink } from 'react-router-dom';
 export default function ContactUsForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -112,7 +112,7 @@ export default function ContactUsForm() {
                   Submit
                 </Button>
                 <div style={{ textAlign: 'center', color: '#fff' }}>
-                  Don't have an account ? <a href="/signup" style={{ color: '#DAA520' }}>Create one</a>
+                  Don't have an account ? <NavLink to="/signup" activeClassName="active" style={{ color: '#DAA520' }}>Create Account</NavLink>
                 </div>
               </Form>
             </Card.Body>

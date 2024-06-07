@@ -1,15 +1,18 @@
 import React from 'react'
 import  Carousel from "../../Components/Carousel/Carousel"
 import Testimonials from '../../Components/TestimonialCard/Testimonials';
-import AllAchievement from '../../Components/Achievements/AllAchievement';
+import Achievements from '../../Components/Achievements/Achievements';
 import CompanyIntro from '../../Components/Introdunctionhome.jsx/CompanyIntro';
+import ProductsHome from '../../Components/ProductsHome/ProductsHome';
+
 function HomePage() {
   return (
     <>
       <Carousel/>
       <CompanyIntro/>
+      <ProductsHome/>
       <Testimonials/>
-      <AllAchievement/>
+      <Achievements/>
     </>
   )
 }

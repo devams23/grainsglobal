@@ -22,12 +22,12 @@
 }
 
 .navvbar-links a:hover {
-  text-decoration: underline;
   color: #1f603c;
+  text-shadow: 0 0 .65px #333, 0 0 .65px #333;
 }
 
 .navvbar-links a {
-  color: #2c6c44;
+  color: #1f603c;
   text-decoration: none;
   font-weight: 400;
 }

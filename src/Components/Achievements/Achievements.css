@@ -1,0 +1,41 @@
+.achievements-container {
+  margin-top: 50px;
+  
+}
+
+.achievements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 10px 20px 10px;
+  border-radius: 10px;
+  background-color: #4b7356;
+}
+
+.achievement {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+  color: #ffffff;
+}
+
+.achievement:hover {
+  transform: scale(1.05);
+}
+
+.achievement h3 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.achievement .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.achievement .description {
+  font-size: 1rem;
+}
