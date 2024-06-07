@@ -15,21 +15,18 @@ const Navbar = () => {
     <nav className={`navvbar ${menuOpen ? 'menu-open' : ''}`}>
       <div className="navvbar-container">
         <div className="navvbar-links">
-          <a href="/">Home</a>
-          <a href="/products">Products</a>
-          <a href="/about">About Us</a>
-          <a href="/contact">Contact Us</a>
-          <NavLink to={"/some"}>
-              fd 
-          </NavLink>
+          <NavLink to="/" exact activeClassName="active">Home</NavLink>
+          <NavLink to="/products" activeClassName="active">Products</NavLink>
+          <NavLink to="/about" activeClassName="active">About Us</NavLink>
+          <NavLink to="/contact" activeClassName="active">Contact Us</NavLink>
         </div>
         <div className="navvbar-actions">
-          <a href="/cart" id='cartlink'>
-          <div className="cart-icon ">
-          <FaShoppingCart/>
-          <div className="notification-circle">{0}</div>
-        </div>
-          </a>
+          <NavLink to="/cart" id="cartlink">
+            <div className="cart-icon">
+              <FaShoppingCart />
+              <div className="notification-circle">{1}</div>
+            </div>
+          </NavLink>
           <button className="menu-icon" onClick={toggleMenu}>
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
@@ -39,12 +36,12 @@ const Navbar = () => {
       </div>
       {menuOpen && (
         <div className="navvbar-mobile">
-          <a href="/" onClick={toggleMenu}>Home</a>
-          <a href="/products" onClick={toggleMenu}>Products</a>
-          <a href="/about" onClick={toggleMenu}>About Us</a>
-          <a href="/contact" onClick={toggleMenu}>Contact Us</a>
+          <NavLink to="/" exact activeClassName="active" onClick={toggleMenu}>Home</NavLink>
+          <NavLink to="/products" activeClassName="active" onClick={toggleMenu}>Products</NavLink>
+          <NavLink to="/about" activeClassName="active" onClick={toggleMenu}>About Us</NavLink>
+          <NavLink to="/contact" activeClassName="active" onClick={toggleMenu}>Contact Us</NavLink>
           {/* Render login link inside hamburger menu */}
-          <a href="/login" className="login-link-mobile" onClick={toggleMenu}>Login</a>
+          <NavLink to="/login" className="login-link-mobile" onClick={toggleMenu}>Login</NavLink>
         </div>
       )}
     </nav>

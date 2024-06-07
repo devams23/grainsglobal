@@ -4,7 +4,7 @@ import './Testimonials.css';
 const Testimonials = () => {
   return (
     <section className="testimonials">
-      <h2>Our Customers</h2>
+      <h2 className="text-center text-white display-6 fw-bold mb-4">What Customers Say</h2>
       <div className="testimonials-container">
         <div className="testimonial">
           <p>"The quality of the cereals, pulses, and spices from Delicosa Fz is outstanding. My dishes have never tasted better!"</p>

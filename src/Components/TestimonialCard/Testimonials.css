@@ -1,12 +1,13 @@
 .testimonials {
-    background-color: #4b7356;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px;
-    color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  color: #ffffff;
+  background-color: #4b7356;
   }
   
-  .testimonials h2 {
+  .testimonials > p {
+    font-size : calc(1.475rem + 2.7vw);
     text-align: center;
     margin-bottom: 20px;
   }

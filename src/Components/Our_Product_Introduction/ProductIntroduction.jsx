@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
-const ProductPageIntroduction = ({imageURL, title, text}) => {
+const ProductIntroduction = ({imageURL, title, text}) => {
   return (
     <Container style={{color: '#fff'}}>
       <Row style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center',}}>
@@ -18,4 +18,4 @@ const ProductPageIntroduction = ({imageURL, title, text}) => {
   );
 };
 
-export default ProductPageIntroduction;
+export default ProductIntroduction;
