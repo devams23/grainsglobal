@@ -1,15 +1,19 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect, version } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import ProductCard from '../ProductCard/ProductCard';
 import ProductPageIntroduction from '../Our_Product_Introduction/ProductIntroduction';
 import { productItems } from '../../FilterCartdata/setcategoryCounts';
-const ProductPage = ({ selected }) => {
+import {NavLink, useParams} from "react-router-dom"
+import createUtilityClassName from 'react-bootstrap/esm/createUtilityClasses';
+const ProductPage = () => {
+  var {selected} = useParams();
+  selected = selected.charAt(0).toUpperCase() + selected.slice(1);
   const [selectedCategory, setSelectedCategory] = useState(selected ?? 'Cereals');
   const categoryCounts = productItems.reduce((acc, product) => {
     acc[product.category] = (acc[product.category] || 0) + 1;
     return acc;
   }, {});
-
+  console.log(selected);
   const categories = Object.keys(categoryCounts);
 
   const filteredProducts = productItems.filter((product) => product.category === selectedCategory);
@@ -40,6 +44,9 @@ const ProductPage = ({ selected }) => {
       maxHeight: '70vh',
       overflowY: 'auto',
     },
+    categoryLinks: { 
+      textDecoration: 'none', 
+    },
     // verticalDivider: {
     //   border: '1px solid #fff',
     //   height: '100%',
@@ -63,14 +70,17 @@ const ProductPage = ({ selected }) => {
               {categories.map((category) => (
                 <Row key={category} className="justify-content-center">
                   <Col xs={12}>
-                    <Button
-                      variant="outline-dark"
-                      style={selectedCategory === category ? { backgroundColor: 'rgba(23, 72, 45, 1)', ...styles.categoryButton, ...styles.activeCategoryButton } : styles.categoryButton}
-                      onClick={() => setSelectedCategory(category)}
-                    >
-                      {category}
-                      <span>({categoryCounts[category]})</span>
-                    </Button>
+
+                  <NavLink  to={`/products/${category.toLowerCase() }` } style={styles.categoryLinks} >
+                      <Button
+                        variant="outline-dark"
+                        style={selectedCategory === category ? { backgroundColor: 'rgba(23, 72, 45, 1)', ...styles.categoryButton, ...styles.activeCategoryButton } : styles.categoryButton}
+                        onClick={() => setSelectedCategory(category)}
+                        >
+                        {category}
+                        <span>({categoryCounts[category]})</span>
+                      </Button>
+                      </NavLink>
                   </Col>
                 </Row>
               ))}

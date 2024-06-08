@@ -44,7 +44,7 @@ const CartPage = () => {
         // Render a component indicating the cart is empty
         <div className="empty-cart">
           <p>Your cart is empty</p>
-          <Link to={"/products"} className="nav-button">Continue Shopping</Link>
+          <Link to={"/products/cereals"} className="nav-button">Continue Shopping</Link>
         </div>
       ) : (
         // Render the cart items if the cart is not empty

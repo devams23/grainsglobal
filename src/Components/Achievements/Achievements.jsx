@@ -16,7 +16,7 @@ const Achievements = () => {
           <div className="achievement" key={index}>
             <h3>{achievement.value}+</h3>
             <p className="title">{achievement.title}</p>
-            <p className="description">{achievement.description}</p>
+            
           </div>
         ))}
       </div>
