@@ -25,7 +25,9 @@
   color: #1f603c;
   text-shadow: 0 0 .65px #333, 0 0 .65px #333;
 }
-
+.active{
+  text-shadow: 0 0 .65px #282828, 0 0 .65px #1d1d1d;
+}
 .navvbar-links a {
   color: #1f603c;
   text-decoration: none;

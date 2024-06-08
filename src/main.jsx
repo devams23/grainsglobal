@@ -5,7 +5,8 @@ import App from './App.jsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css"
-
+import store from './store/store.js';
+import { Provider } from 'react-redux';
 import { RouterProvider , Route  , createBrowserRouter , createRoutesFromElements} from 'react-router-dom'
 import Layout from "./Components/Layout.jsx"
 
@@ -14,7 +15,7 @@ import {HomePage , OurProductsPage , MyCartPage , ContactUsPage , AboutUsPage , 
 
 
 const router = createBrowserRouter(
-  
+
   createRoutesFromElements(
     <Route path='/' element=  {<Layout/>}>
        <Route path='' element={<HomePage/>}/>
@@ -31,7 +32,10 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <RouterProvider router= {router} />
+      <Provider store={store}>
+
+<RouterProvider router={router} />
+</Provider>
       {/* <App/> */}
   </React.StrictMode>,
 )

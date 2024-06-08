@@ -1,31 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import ProductCard from '../ProductCard/ProductCard';
 import ProductPageIntroduction from '../Our_Product_Introduction/ProductIntroduction';
-
+import { productItems } from '../../FilterCartdata/setcategoryCounts';
 const ProductPage = ({ selected }) => {
   const [selectedCategory, setSelectedCategory] = useState(selected ?? 'Cereals');
-  const productCards = [
-    // ... (your product cards array)
-    { category: 'Yellow', imageUrl: 'https://placehold.co/250x250', name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/250x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/250x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-    { category: 'Yellow', imageUrl: "https://placehold.co/350x250", name: 'Name' },
-  ];
-
-  const categoryCounts = productCards.reduce((acc, product) => {
+  const categoryCounts = productItems.reduce((acc, product) => {
     acc[product.category] = (acc[product.category] || 0) + 1;
     return acc;
   }, {});
 
   const categories = Object.keys(categoryCounts);
 
-  const filteredProducts = productCards.filter((product) => product.category === selectedCategory);
+  const filteredProducts = productItems.filter((product) => product.category === selectedCategory);
 
   const styles = {
     container: {
@@ -60,6 +47,7 @@ const ProductPage = ({ selected }) => {
     // },
   };
 
+
   return (
     <Container>
       <ProductPageIntroduction 
@@ -76,7 +64,7 @@ const ProductPage = ({ selected }) => {
                 <Row key={category} className="justify-content-center">
                   <Col xs={12}>
                     <Button
-                      variant="outline-light"
+                      variant="outline-dark"
                       style={selectedCategory === category ? { backgroundColor: 'rgba(23, 72, 45, 1)', ...styles.categoryButton, ...styles.activeCategoryButton } : styles.categoryButton}
                       onClick={() => setSelectedCategory(category)}
                     >
@@ -93,7 +81,7 @@ const ProductPage = ({ selected }) => {
             <Row className="mt-4 justify-content-center" style={styles.scrollable}>
               {filteredProducts.map((product, index) => (
                 <Col key={index} xs={6} md={4} className="mb-4 d-flex justify-content-center">
-                  <ProductCard imageUrl={product.imageUrl} name={product.name} />
+                  <ProductCard imageUrl={product.imageUrl} name={product.name} price = {product.price}   />
                 </Col>
               ))}
             </Row>
