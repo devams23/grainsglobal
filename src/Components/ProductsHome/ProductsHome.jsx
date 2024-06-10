@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 const products = [
   { title: 'Cereals', image: 'one.jpg', link: 'products/cereals' },
   { title: 'Pulses', image: 'two.jpg', link: 'products/pulses' },
-  { title: 'Spieces', image: 'three.jpg', link: 'products/spieces' },
+  { title: 'Spices', image: 'three.jpg', link: 'products/spices' },
   // Add more products as needed
 ];
 

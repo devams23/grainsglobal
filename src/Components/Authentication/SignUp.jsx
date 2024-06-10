@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 
-export default function ContactUsForm() {
+export default function SignUp() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,7 +10,7 @@ export default function ContactUsForm() {
   });
 
   const [errors, setErrors] = useState({});
-
+  const [isloading, setisloading] = useState(false);
   // Handle input change for each form field
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +63,8 @@ export default function ContactUsForm() {
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      console.log(formData); // Log form data
+      console.log(formData);
+       // Log form data
       // You can submit the form data to your backend or perform any other action here
     }
   };

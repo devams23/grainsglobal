@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-export default function ContactUsForm() {
+
+export default function Login() {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
   });
 
   const [errors, setErrors] = useState({});
-
+  const [message, setMessage] = useState('');
+  const [isloading, setisloading] = useState(false);
   // Handle input change for each form field
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,10 +21,6 @@ export default function ContactUsForm() {
   // Validation function for each form field
   const validate = () => {
     const errors = {};
-    // Name validation
-    if (!formData.name) {
-      errors.name = 'Name is required';
-    }
     // Email validation
     if (!formData.email) {
       errors.email = 'Email is required';
@@ -58,13 +55,12 @@ export default function ContactUsForm() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      console.log(formData); // Log form data
-      // You can submit the form data to your backend or perform any other action here
+        // HANDLING FORM DATA
     }
   };
 
@@ -104,15 +100,15 @@ export default function ContactUsForm() {
                   {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
                 </Form.Group>
                 <Button
-                  variant="warning"
                   type="submit"
                   className="w-100 my-3"
                   style={{ backgroundColor: '#DAA520', borderColor: '#DAA520', color: '#1F603C' }}
                 >
                   Submit
                 </Button>
+                {message && <div style={{ color: 'white', textAlign: 'center' }}>{message}</div>}
                 <div style={{ textAlign: 'center', color: '#fff' }}>
-                  Don't have an account ? <NavLink to="/signup" activeClassName="active" style={{ color: '#DAA520' }}>Create Account</NavLink>
+                  Don't have an account ? <NavLink to="/signup"  style={{ color: '#DAA520' }}>Create Account</NavLink>
                 </div>
               </Form>
             </Card.Body>

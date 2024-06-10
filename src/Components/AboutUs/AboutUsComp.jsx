@@ -31,7 +31,7 @@ const AboutUsComp = () => {
               pulses, and spices, delivering high-quality products to customers
               worldwide.
             </p>
-          <Button text="Contact Us" redirect="contact" />
+          <Button text="Contact Us" redirect="/contact" />
           </div>
         </Col>
         <Col md={6}>
