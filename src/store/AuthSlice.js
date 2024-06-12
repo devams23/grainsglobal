@@ -9,11 +9,11 @@ const authslice = createSlice({
     name : 'auth',
     initialState,
     reducers:{
-        login:(state , action)=>{
+        loginstore:(state , action)=>{
             state.status = true;
             state.userdata = action.payload;
         },
-        logout:(state)=>{
+        logoutstore:(state)=>{
             state.status = false;
             state.userdata = null;
         },
@@ -23,5 +23,5 @@ const authslice = createSlice({
     }
 })
 
-export const  {login , logout , setcartvalue} = authslice.actions;
+export const  {loginstore , logoutstore , setcartvalue} = authslice.actions;
 export default authslice.reducer;

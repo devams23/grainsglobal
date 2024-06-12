@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Card, Col, Container, Form, Row , Spinner} from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { loginstore } from "../../store/AuthSlice";
+import authservice from "../../appwrite/auth";
+import { useDispatch } from "react-redux";
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const [isloading, setisloading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   // Handle input change for each form field
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,17 +28,17 @@ export default function SignUp() {
     const errors = {};
     // Name validation
     if (!formData.name) {
-      errors.name = 'Name is required';
+      errors.name = "Name is required";
     }
     // Email validation
     if (!formData.email) {
-      errors.email = 'Email is required';
+      errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Email address is invalid';
+      errors.email = "Email address is invalid";
     }
     // Password validation
     if (!formData.password) {
-      errors.password = 'Password is required';
+      errors.password = "Password is required";
     } else {
       const password = formData.password;
       const hasMinLength = password.length > 7;
@@ -42,15 +48,16 @@ export default function SignUp() {
       const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
       if (!hasMinLength) {
-        errors.password = 'Password must be at least 8 characters long';
+        errors.password = "Password must be at least 8 characters long";
       } else if (!hasLowercase) {
-        errors.password = 'Password must contain at least one lowercase letter';
+        errors.password = "Password must contain at least one lowercase letter";
       } else if (!hasUppercase) {
-        errors.password = 'Password must contain at least one uppercase letter';
+        errors.password = "Password must contain at least one uppercase letter";
       } else if (!hasNumber) {
-        errors.password = 'Password must contain at least one number';
+        errors.password = "Password must contain at least one number";
       } else if (!hasSpecialChar) {
-        errors.password = 'Password must contain at least one special character';
+        errors.password =
+          "Password must contain at least one special character";
       }
     }
 
@@ -58,29 +65,62 @@ export default function SignUp() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       console.log(formData);
-       // Log form data
-      // You can submit the form data to your backend or perform any other action here
+      try {
+        setIsLoading(true)
+        const session = await authservice.signup({...formData});
+        if (session) {
+          const userdata = await authservice.getcurrentuser();
+          if (userdata) {
+            setIsLoading(false)
+            dispatch(loginstore(userdata));
+            navigate("/");
+          }
+        }
+      } catch (error) {
+        setIsLoading(false)
+        console.error("Error logging in:", error);
+        setMessage("Email Already Exists");
+      }
     }
   };
 
   return (
-    <Container fluid className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0)' }}>
+    <Container
+      fluid
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh", backgroundColor: "rgba(255, 255, 255, 0)" }}
+    >
       <Row className="justify-content-center w-100">
         <Col lg={6} md={8} sm={10}>
-          <Card style={{backgroundColor: 'rgba(255, 255, 255, 0.11)'}}>
+          <Card style={{ backgroundColor: "rgba(255, 255, 255, 0.11)" }}>
             <Card.Body>
-              <h2 style={{ color: '#fff', textAlign: 'center', marginBottom: '20px' }}>Create Account</h2>
-              <Form style={{padding: '0px 30px 0px 30px'}} onSubmit={handleSubmit}>
-                <Form.Group className='my-3' controlId="formName">
-                  <Form.Label style={{ color: '#fff' }}>Name</Form.Label>
+              <h2
+                style={{
+                  color: "#fff",
+                  textAlign: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                Create Account
+              </h2>
+              <Form
+                style={{ padding: "0px 30px 0px 30px" }}
+                onSubmit={handleSubmit}
+              >
+                <Form.Group className="my-3" controlId="formName">
+                  <Form.Label style={{ color: "#fff" }}>Name</Form.Label>
                   <Form.Control
-                    style={{ color: '#1F603C', borderColor: '#fff', padding: '5px' }}
+                    style={{
+                      color: "#1F603C",
+                      borderColor: "#fff",
+                      padding: "5px",
+                    }}
                     type="text"
                     placeholder="Enter your name"
                     name="name"
@@ -88,12 +128,22 @@ export default function SignUp() {
                     onChange={handleChange}
                     autoComplete="name"
                   />
-                  {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
+                  {errors.name && (
+                    <div style={{ color: "red" }}>{errors.name}</div>
+                  )}
                 </Form.Group>
-                <Form.Group style={{paddingTop: '10px'}} className='my-3' controlId="formEmail">
-                  <Form.Label style={{ color: '#fff' }}>Email</Form.Label>
+                <Form.Group
+                  style={{ paddingTop: "10px" }}
+                  className="my-3"
+                  controlId="formEmail"
+                >
+                  <Form.Label style={{ color: "#fff" }}>Email</Form.Label>
                   <Form.Control
-                    style={{ color: '#1F603C', borderColor: '#fff', padding: '5px' }}
+                    style={{
+                      color: "#1F603C",
+                      borderColor: "#fff",
+                      padding: "5px",
+                    }}
                     type="email"
                     placeholder="Enter your email"
                     name="email"
@@ -101,12 +151,22 @@ export default function SignUp() {
                     onChange={handleChange}
                     autoComplete="email"
                   />
-                  {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+                  {errors.email && (
+                    <div style={{ color: "red" }}>{errors.email}</div>
+                  )}
                 </Form.Group>
-                <Form.Group style={{paddingTop: '10px'}} className='my-3' controlId="formPassword">
-                  <Form.Label style={{ color: '#fff' }}>Password</Form.Label>
+                <Form.Group
+                  style={{ paddingTop: "10px" }}
+                  className="my-3"
+                  controlId="formPassword"
+                >
+                  <Form.Label style={{ color: "#fff" }}>Password</Form.Label>
                   <Form.Control
-                    style={{ color: '#1F603C', borderColor: '#fff', padding: '5px' }}
+                    style={{
+                      color: "#1F603C",
+                      borderColor: "#fff",
+                      padding: "5px",
+                    }}
                     type="password"
                     placeholder="Enter your password"
                     name="password"
@@ -114,18 +174,41 @@ export default function SignUp() {
                     onChange={handleChange}
                     autoComplete="current-password"
                   />
-                  {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
+                  {errors.password && (
+                    <div style={{ color: "red" }}>{errors.password}</div>
+                  )}
                 </Form.Group>
+                {message && <div style={{ color: 'white', textAlign: 'center' }}>{message}</div>}
                 <Button
                   variant="warning"
                   type="submit"
                   className="w-100 my-3"
-                  style={{ backgroundColor: '#DAA520', borderColor: '#DAA520', color: '#1F603C' }}
+                  style={{
+                    backgroundColor: "#DAA520",
+                    borderColor: "#DAA520",
+                    color: "#1F603C",
+                  }}
                 >
-                  Submit
+                              {isLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />{" "}
+                 
+                </>
+              ) : (
+                "Submit"
+              )}
                 </Button>
-                <div style={{ textAlign: 'center', color: '#fff' }}>
-                  Already Have an Account ? <a href="/login" style={{ color: '#DAA520' }}>Sign in</a>
+                <div style={{ textAlign: "center", color: "#fff" }}>
+                  Already Have an Account ?{" "}
+                  <a href="/login" style={{ color: "#DAA520" }}>
+                    Sign in
+                  </a>
                 </div>
               </Form>
             </Card.Body>

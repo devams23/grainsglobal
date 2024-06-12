@@ -12,6 +12,10 @@ import Layout from "./Components/Layout.jsx"
 
 import {HomePage , OurProductsPage , MyCartPage , ContactUsPage , AboutUsPage , LoginPage , SignUpPage} from "./Pages"
 
+// App.js or index.js
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 
 const router = createBrowserRouter(

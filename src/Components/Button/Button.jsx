@@ -3,9 +3,11 @@ import "./Button.css"
 import { NavLink } from 'react-router-dom'
 function Button( {
     redirect = "",
-    text = ""}) {
+    text = "",
+    invisible = false}
+    ) {
   return (
-    <div className="login-button-large-screen">
+    <div className={`login-button-large-screen  ${invisible === true ? "invisible" : ""}`}>
    <NavLink to={`${redirect}`} className={"login-button"}  >{text}</NavLink>
   </div>
   )
