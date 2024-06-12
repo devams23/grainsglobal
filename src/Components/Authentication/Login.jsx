@@ -77,9 +77,9 @@ export default function Login() {
         }
         
     } catch (error) {
-      setisloading(cur => !cur);
-          console.error('Error logging in:', error);
-          setMessage('Invalid credentials');
+        setisloading(cur => !cur);
+        console.error('Error logging in:', error);
+        setMessage('Invalid credentials');
         }
       
     }
