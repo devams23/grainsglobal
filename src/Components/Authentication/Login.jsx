@@ -109,7 +109,7 @@ export default function Login() {
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
-                      padding: "5px",
+                      padding: "10px",
                       color:"white",
 
                     }}
@@ -135,7 +135,8 @@ export default function Login() {
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
-                      padding: "5px",
+                      padding: "10px",
+                      color: "white",
                     }}
                     type="password"
                     placeholder="Enter your password"

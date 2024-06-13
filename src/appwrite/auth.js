@@ -14,6 +14,7 @@ export class AuthService{
     }
     async signup({email, password, name }) {
             const registeracc =  await this.account.create(ID.unique(),email , password , name);
+            this.account.createVerification()
             return this.signin({email , password})
             
         
