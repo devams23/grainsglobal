@@ -120,7 +120,7 @@ const AboutUsComp = () => {
             >
               <Card.Img
                 variant="top"
-                src="https://via.placeholder.com/150"
+                src="Staff/employee.jpg"
                 alt="Sarah Johnson"
                 className="rounded-circle mx-auto mt-3"
                 style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -148,7 +148,7 @@ const AboutUsComp = () => {
             >
               <Card.Img
                 variant="top"
-                src="https://via.placeholder.com/150"
+                src="Staff/employee.jpg"
                 alt="John Doe"
                 className="rounded-circle mx-auto mt-3"
                 style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -176,7 +176,7 @@ const AboutUsComp = () => {
             >
               <Card.Img
                 variant="top"
-                src="https://via.placeholder.com/150"
+                src="Staff/employee.jpg"
                 alt="Lisa Martinez"
                 className="rounded-circle mx-auto mt-3"
                 style={{ width: "150px", height: "150px", objectFit: "cover" }}

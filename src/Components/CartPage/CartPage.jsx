@@ -77,7 +77,7 @@ const CartPage = () => {
           Total ({cartitems.length} ITEMS) : ${totalPrice}
         </span>
         <div>
-          <Link to={"/products"} className="nav-button">
+          <Link to={"/products/cereals"} className="nav-button">
             Continue Shopping
           </Link>
           <button className="nav-button" onClick={buynowhandle}>

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-
+import { Button, Card, Col, Container, Form, Row , Spinner } from 'react-bootstrap';
+import { NavLink, useNavigate } from 'react-router-dom';
+import authservice from '../../appwrite/auth';
+import { loginstore } from '../../store/AuthSlice';
+import { useDispatch } from 'react-redux';
 export default function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const [isloading, setisloading] = useState(false);
@@ -60,7 +63,25 @@ export default function Login() {
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-        // HANDLING FORM DATA
+      
+      try {
+        setisloading(cur => !cur);
+        const session = await authservice.signin({...formData})
+        if (session) {
+            const userdata = await authservice.getcurrentuser();
+            if (userdata) {
+              setisloading(cur => !cur);
+                dispatch(loginstore(userdata))
+                navigate("/")
+            }
+        }
+        
+    } catch (error) {
+        setisloading(cur => !cur);
+        console.error('Error logging in:', error);
+        setMessage('Invalid credentials');
+        }
+      
     }
   };
 
@@ -99,14 +120,27 @@ export default function Login() {
                   />
                   {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
                 </Form.Group>
+                {message && <div style={{ color: 'white', textAlign: 'center' }}>{message}</div>}
                 <Button
                   type="submit"
                   className="w-100 my-3"
                   style={{ backgroundColor: '#DAA520', borderColor: '#DAA520', color: '#1F603C' }}
                 >
-                  Submit
+                              {isloading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />{" "}
+                  
+                </>
+              ) : (
+                "Submit"
+              )}
                 </Button>
-                {message && <div style={{ color: 'white', textAlign: 'center' }}>{message}</div>}
                 <div style={{ textAlign: 'center', color: '#fff' }}>
                   Don't have an account ? <NavLink to="/signup"  style={{ color: '#DAA520' }}>Create Account</NavLink>
                 </div>
