@@ -21,7 +21,7 @@ function Layout() {
           dispatch(loginstore(user));
         }
       } catch (error) {
-        console.error('Error fetching current user', error);
+        //console.error('Error fetching current user', error);
       } finally {
         setLoading(false);
       }

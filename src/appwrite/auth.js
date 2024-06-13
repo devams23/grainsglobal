@@ -13,24 +13,16 @@ export class AuthService{
 
     }
     async signup({email, password, name }) {
-        try {
             const registeracc =  await this.account.create(ID.unique(),email , password , name);
             return this.signin({email , password})
             
-        } catch (error) {
-            console.log("auth service :: signup :: error ", error);
-        }
+        
     } 
 
     async signin({email , password}){
-        try {
             return await this.account.createEmailPasswordSession(email, password);
 
-        } catch (error) {
-            console.log("auth service :: signin :: error ", error);
-            
-        }
-        return false;
+        
     }
     async signout(){
         try {
@@ -41,13 +33,14 @@ export class AuthService{
         }
     }
     async getcurrentuser(){
-        try {
-          return await this.account.get();
+        // try {
+        //   return await this.account.get();
         
-        } catch (error) {
-            console.log("auth service :: getcurrentuser :: error ", error);
-        }
-        return null;
+        // } catch (error) {
+        //     console.log("auth service :: getcurrentuser :: error ", error);
+        // }
+        // return null;
+        return await this.account.get();
     }
 }; 
 

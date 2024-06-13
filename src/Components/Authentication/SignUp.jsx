@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Card, Col, Container, Form, Row , Spinner} from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { loginstore } from "../../store/AuthSlice";
@@ -15,7 +24,7 @@ export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // Handle input change for each form field
   const handleChange = (e) => {
@@ -72,20 +81,21 @@ export default function SignUp() {
     if (Object.keys(validationErrors).length === 0) {
       console.log(formData);
       try {
-        setIsLoading(true)
-        const session = await authservice.signup({...formData});
+        setIsLoading(true);
+        const session = await authservice.signup({ ...formData });
         if (session) {
           const userdata = await authservice.getcurrentuser();
           if (userdata) {
-            setIsLoading(false)
+            setIsLoading(false);
             dispatch(loginstore(userdata));
             navigate("/");
           }
         }
       } catch (error) {
-        setIsLoading(false)
-        console.error("Error logging in:", error);
         setMessage("Email Already Exists");
+        console.log("Error logging in:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -117,9 +127,10 @@ export default function SignUp() {
                   <Form.Label style={{ color: "#fff" }}>Name</Form.Label>
                   <Form.Control
                     style={{
-                      color: "#1F603C",
-                      borderColor: "#fff",
+                      backgroundColor: "#1F603C",
+                      borderColor: "#DAA520",
                       padding: "5px",
+                      color:"white",
                     }}
                     type="text"
                     placeholder="Enter your name"
@@ -140,9 +151,11 @@ export default function SignUp() {
                   <Form.Label style={{ color: "#fff" }}>Email</Form.Label>
                   <Form.Control
                     style={{
-                      color: "#1F603C",
-                      borderColor: "#fff",
+                      backgroundColor: "#1F603C",
+                      borderColor: "#DAA520",
                       padding: "5px",
+                      color:"white",
+
                     }}
                     type="email"
                     placeholder="Enter your email"
@@ -163,9 +176,11 @@ export default function SignUp() {
                   <Form.Label style={{ color: "#fff" }}>Password</Form.Label>
                   <Form.Control
                     style={{
-                      color: "#1F603C",
-                      borderColor: "#fff",
+                      backgroundColor: "#1F603C",
+                      borderColor: "#DAA520",
                       padding: "5px",
+                      color:"white",
+
                     }}
                     type="password"
                     placeholder="Enter your password"
@@ -178,7 +193,11 @@ export default function SignUp() {
                     <div style={{ color: "red" }}>{errors.password}</div>
                   )}
                 </Form.Group>
-                {message && <div style={{ color: 'white', textAlign: 'center' }}>{message}</div>}
+                {message && (
+                  <Alert variant="danger" style={{ textAlign: "center" }}>
+                    {message}
+                  </Alert>
+                )}
                 <Button
                   variant="warning"
                   type="submit"
@@ -189,20 +208,19 @@ export default function SignUp() {
                     color: "#1F603C",
                   }}
                 >
-                              {isLoading ? (
-                <>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />{" "}
-                 
-                </>
-              ) : (
-                "Submit"
-              )}
+                  {isLoading ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />{" "}
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
                 <div style={{ textAlign: "center", color: "#fff" }}>
                   Already Have an Account ?{" "}
