@@ -15,8 +15,8 @@ const CompanyIntro = () => {
             marginBottom: '20px',
         },
         companyDescriptionText: {
-            color: '#666',
-            fontSize: '1.2em',
+            color: '#daa520',
+            fontSize: '1.3em',
             marginBottom: '20px',
         },
         learnMoreBtn: {
@@ -59,7 +59,7 @@ const CompanyIntro = () => {
                 <Col md={6}>
                     <div className="text-center" style={styles.companyImages}>
                         <img
-                            src="https://via.placeholder.com/500"
+                            src="one.jpg"
                             alt="Placeholder"
                             className="img-fluid rounded shadow"
                             style={{ maxWidth: '100%' }}
