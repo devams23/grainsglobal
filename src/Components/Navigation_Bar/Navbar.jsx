@@ -52,7 +52,7 @@ const Navbar = () => {
       <div className="navvbar-container">
       <div className="navvbar-logo">
           <NavLink to="/">
-            <img src="grainsglobal.svg" height={60} alt="Logo" />
+            <img src={"grainsglobal.svg"} alt="Logo" />
           </NavLink>
         </div>
         <div className="navvbar-links">

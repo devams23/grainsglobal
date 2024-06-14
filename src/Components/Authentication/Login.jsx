@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Card, Col, Container, Form, Row , Spinner , Alert} from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Row,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import authservice from "../../appwrite/auth";
 import { loginstore } from "../../store/AuthSlice";
@@ -13,7 +22,8 @@ export default function Login() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const [emailerrors, setemailErrors] = useState([]);
+  const [passerrors, setpassErrors] = useState([]);
   const [message, setMessage] = useState("");
   const [isloading, setIsLoading] = useState(false);
 
@@ -23,40 +33,43 @@ export default function Login() {
   };
 
   const validate = () => {
-    const errors = {};
+    const emailerrors = [];
+    const passerrors = [];
     if (!formData.email) {
-      errors.email = "Email is required";
+      emailerrors.push("Email is required");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email address is invalid";
+      emailerrors.push("Email address is invalid");
     }
-
+    //setemailErrors(emailerrors);
     if (!formData.password) {
-      errors.password = "Password is required";
+      passerrors.push("Password is required");
     } else {
       const password = formData.password;
       if (password.length < 8) {
-        errors.password = "Password must be at least 8 characters long";
-      } else if (!/[a-z]/.test(password)) {
-        errors.password = "Password must contain at least one lowercase letter";
-      } else if (!/[A-Z]/.test(password)) {
-        errors.password = "Password must contain at least one uppercase letter";
-      } else if (!/[0-9]/.test(password)) {
-        errors.password = "Password must contain at least one number";
-      } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        errors.password =
-          "Password must contain at least one special character";
+        passerrors.push("Password must be at least 8 characters long");
+      }  if (!/[a-z]/.test(password)) {
+        passerrors.push("Password must contain at least one lowercase letter");
+      }  if (!/[A-Z]/.test(password)) {
+        passerrors.push("Password must contain at least one uppercase letter");
+      }  if (!/[0-9]/.test(password)) {
+        passerrors.push("Password must contain at least one number");
+      }  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        passerrors.push("Password must contain at least one special character");
       }
     }
-
-    return errors;
+    return {emailerrors , passerrors};
+    //setpassErrors(passerrors)
+    
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      try {
+    const {emailerrors  , passerrors} = validate();
+    setemailErrors(emailerrors)
+    setpassErrors(passerrors)
+    //console.log(emailerrors , passerrors)
+    if (emailerrors.length === 0 && passerrors.length ===0) {
+       try {
         setIsLoading(true);
         //setMessage("fdsafs")
         const session = await authservice.signin({ ...formData });
@@ -72,8 +85,9 @@ export default function Login() {
         console.error("Error logging in:", error);
       } finally {
         setIsLoading(false);
+
       }
-    }
+     }
   };
 
   return (
@@ -104,25 +118,23 @@ export default function Login() {
                   className="my-3"
                   controlId="formEmail"
                 >
-                  <Form.Label style={{ color: "#fff" }}>Email</Form.Label>
+                  <Form.Label style={{ color: "#DAA520" }}>Email</Form.Label>
                   <Form.Control
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
                       padding: "10px",
-                      color:"white",
-
+                      color: "white",
                     }}
-                    
                     type="email"
-                    placeholder="Enter your email " 
+                    placeholder="Enter your email "
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     autoComplete="email"
                   />
-                  {errors.email && (
-                    <div style={{ color: "red" }}>{errors.email}</div>
+                  {emailerrors && emailerrors.length >0 &&(
+                    <div style={{ color: "white" }}>{"*"+emailerrors}</div>
                   )}
                 </Form.Group>
                 <Form.Group
@@ -130,7 +142,7 @@ export default function Login() {
                   className="my-3"
                   controlId="formPassword"
                 >
-                  <Form.Label style={{ color: "#fff" }}>Password</Form.Label>
+                  <Form.Label style={{ color: "#DAA520" }}>Password</Form.Label>
                   <Form.Control
                     style={{
                       backgroundColor: "#1F603C",
@@ -145,11 +157,16 @@ export default function Login() {
                     onChange={handleChange}
                     autoComplete="current-password"
                   />
-                  {errors.password && (
-                    <div style={{ color: "red" }}>{errors.password}</div>
-                  )}
+                  {passerrors &&
+                    passerrors.map((error) => (
+                      <div style={{ color: "white"  }} key={error}>*{error}</div>
+                    ))}
                 </Form.Group>
-                {message && <Alert variant="danger" style={{ textAlign: 'center' }}>{message}</Alert>}
+                {message && (
+                  <Alert variant="danger" style={{ textAlign: "center" }}>
+                    {message}
+                  </Alert>
+                )}
                 <Button
                   type="submit"
                   className="w-100 my-3"
@@ -168,7 +185,6 @@ export default function Login() {
                         role="status"
                         aria-hidden="true"
                       />{" "}
-                      
                     </>
                   ) : (
                     "Submit"

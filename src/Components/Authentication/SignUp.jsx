@@ -23,7 +23,8 @@ export default function SignUp() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const [errors, setlErrors] = useState([]);
+  const [passerrors, setpassErrors] = useState([]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // Handle input change for each form field
@@ -35,8 +36,10 @@ export default function SignUp() {
   // Validation function for each form field
   const validate = () => {
     const errors = {};
+    const passerrors = [];
     // Name validation
     if (!formData.name) {
+      
       errors.name = "Name is required";
     }
     // Email validation
@@ -47,39 +50,38 @@ export default function SignUp() {
     }
     // Password validation
     if (!formData.password) {
-      errors.password = "Password is required";
+      passerrors.push("Password is required");
     } else {
       const password = formData.password;
-      const hasMinLength = password.length > 7;
-      const hasLowercase = /[a-z]/.test(password);
-      const hasUppercase = /[A-Z]/.test(password);
-      const hasNumber = /[0-9]/.test(password);
-      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-      if (!hasMinLength) {
-        errors.password = "Password must be at least 8 characters long";
-      } else if (!hasLowercase) {
-        errors.password = "Password must contain at least one lowercase letter";
-      } else if (!hasUppercase) {
-        errors.password = "Password must contain at least one uppercase letter";
-      } else if (!hasNumber) {
-        errors.password = "Password must contain at least one number";
-      } else if (!hasSpecialChar) {
-        errors.password =
-          "Password must contain at least one special character";
+      if (password.length < 8) {
+        passerrors.push("Password must be at least 8 characters long");
+      }
+      if (!/[a-z]/.test(password)) {
+        passerrors.push("Password must contain at least one lowercase letter");
+      }
+      if (!/[A-Z]/.test(password)) {
+        passerrors.push("Password must contain at least one uppercase letter");
+      }
+      if (!/[0-9]/.test(password)) {
+        passerrors.push("Password must contain at least one number");
+      }
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        passerrors.push("Password must contain at least one special character");
       }
     }
 
-    return errors;
+    return {errors, passerrors};
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      console.log(formData);
+    const { errors, passerrors } = validate();
+    setlErrors(errors);
+    setpassErrors(passerrors);
+    //console.log(errors.name.length , passerrors)
+
+    if (Object.keys(errors).length === 0 && passerrors.length === 0) {
       try {
         setIsLoading(true);
         const session = await authservice.signup({ ...formData });
@@ -124,7 +126,7 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
               >
                 <Form.Group className="my-3" controlId="formName">
-                  <Form.Label style={{ color: "#fff" }}>Name</Form.Label>
+                  <Form.Label style={{ color: "#DAA520" }}>Name</Form.Label>
                   <Form.Control
                     style={{
                       backgroundColor: "#1F603C",
@@ -140,22 +142,21 @@ export default function SignUp() {
                     autoComplete="name"
                   />
                   {errors.name && (
-                    <div style={{ color: "red" }}>{errors.name}</div>
+                    <div style={{ color: "white" }}>{"*" + errors.name}</div>
                   )}
-                </Form.Group>
+                </Form.Group> 
                 <Form.Group
                   style={{ paddingTop: "10px" }}
                   className="my-3"
                   controlId="formEmail"
                 >
-                  <Form.Label style={{ color: "#fff" }}>Email</Form.Label>
+                  <Form.Label style={{ color: "#DAA520" }}>Email</Form.Label>
                   <Form.Control
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
                       padding: "10px",
                       color: "white",
-
                     }}
                     type="email"
                     placeholder="Enter your email"
@@ -164,8 +165,8 @@ export default function SignUp() {
                     onChange={handleChange}
                     autoComplete="email"
                   />
-                  {errors.email && (
-                    <div style={{ color: "red" }}>{errors.email}</div>
+                  {errors.email&& (
+                    <div style={{ color: "white" }}>{"*" + errors.email}</div>
                   )}
                 </Form.Group>
                 <Form.Group
@@ -173,24 +174,28 @@ export default function SignUp() {
                   className="my-3"
                   controlId="formPassword"
                 >
-<Form.Label style={{ color: "#fff" }}>Password</Form.Label>
-<Form.Control
-  style={{
-    backgroundColor: "#1F603C",
-    borderColor: "#DAA520",
-    padding: "10px",
-    color: "white",
-  }}
-  type="password"
-  placeholder="Enter your password"
-  name="password"
-  value={formData.password}
-  onChange={handleChange}
-  autoComplete="current-password"
-/>
-                  {errors.password && (
-                    <div style={{ color: "red" }}>{errors.password}</div>
-                  )}
+                  <Form.Label style={{ color: "#DAA520" }}>Password</Form.Label>
+                  <Form.Control
+                    style={{
+                      backgroundColor: "#1F603C",
+                      borderColor: "#DAA520",
+                      padding: "10px",
+                      color: "white",
+                    }}
+                    type="password"
+                    placeholder="Enter your password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    autoComplete="current-password"
+                  />
+                  {passerrors &&
+                    passerrors.length > 0 &&
+                    passerrors.map((error) => (
+                      <div style={{ color: "white" }} key={error}>
+                        *{error}
+                      </div>
+                    ))}
                 </Form.Group>
                 {message && (
                   <Alert variant="danger" style={{ textAlign: "center" }}>

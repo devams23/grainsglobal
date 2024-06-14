@@ -10,9 +10,11 @@ const CompanyIntro = () => {
             alignItems: 'center',
         },
         companyDescriptionTitle: {
-            color: '#333',
+            color: '#daa520',
             fontSize: '2em',
             marginBottom: '20px',
+            fontWeight :"bold"
+            
         },
         companyDescriptionText: {
             color: '#daa520',
