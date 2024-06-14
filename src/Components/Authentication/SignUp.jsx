@@ -129,8 +129,8 @@ export default function SignUp() {
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
-                      padding: "5px",
-                      color:"white",
+                      padding: "10px",
+                      color: "white",
                     }}
                     type="text"
                     placeholder="Enter your name"
@@ -153,8 +153,8 @@ export default function SignUp() {
                     style={{
                       backgroundColor: "#1F603C",
                       borderColor: "#DAA520",
-                      padding: "5px",
-                      color:"white",
+                      padding: "10px",
+                      color: "white",
 
                     }}
                     type="email"
@@ -173,22 +173,21 @@ export default function SignUp() {
                   className="my-3"
                   controlId="formPassword"
                 >
-                  <Form.Label style={{ color: "#fff" }}>Password</Form.Label>
-                  <Form.Control
-                    style={{
-                      backgroundColor: "#1F603C",
-                      borderColor: "#DAA520",
-                      padding: "5px",
-                      color:"white",
-
-                    }}
-                    type="password"
-                    placeholder="Enter your password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    autoComplete="current-password"
-                  />
+<Form.Label style={{ color: "#fff" }}>Password</Form.Label>
+<Form.Control
+  style={{
+    backgroundColor: "#1F603C",
+    borderColor: "#DAA520",
+    padding: "10px",
+    color: "white",
+  }}
+  type="password"
+  placeholder="Enter your password"
+  name="password"
+  value={formData.password}
+  onChange={handleChange}
+  autoComplete="current-password"
+/>
                   {errors.password && (
                     <div style={{ color: "red" }}>{errors.password}</div>
                   )}
