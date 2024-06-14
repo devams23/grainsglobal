@@ -50,7 +50,13 @@ const Navbar = () => {
   return (
     <nav className={`navvbar ${menuOpen ? "menu-open" : ""}`}>
       <div className="navvbar-container">
+      <div className="navvbar-logo">
+          <NavLink to="/">
+            <img src="grainsglobal.svg" height={60} alt="Logo" />
+          </NavLink>
+        </div>
         <div className="navvbar-links">
+
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active" : "none")}
