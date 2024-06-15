@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
+import { useDispatch } from "react-redux";
+import { setcartvalue } from "../../store/AuthSlice";
 const CartPage = () => {
     const lentilImage = "one.jpg";
     const [cartitems, setcartitems] = useState([]);
     const [totalPrice, settotalPrice] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [iscartempty, setiscartempty] = useState(true);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         let cart = localStorage.getItem("CartItems");
         if (cart) {
@@ -36,6 +37,7 @@ const CartPage = () => {
     const deleteItem = (name) => {
         const updatedCartItems = cartitems.filter((item) => item.name !== name);
         setcartitems(updatedCartItems);
+        dispatch(setcartvalue(updatedCartItems.length))
         localStorage.setItem("CartItems", JSON.stringify(updatedCartItems));
         const totalprice =
             Math.round(
