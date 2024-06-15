@@ -24,6 +24,7 @@ import {
   AboutUsPage,
   LoginPage,
   SignUpPage,
+  VerificationPage
 } from "./Pages";
 
 // App.js or index.js
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
 
       <Route path="contact" element={<ContactUsPage />} />
       <Route path="about" element={<AboutUsPage />} />
+      <Route path="verify" element={<VerificationPage />} />
       <Route
         path="login"
         element={

@@ -47,6 +47,17 @@ const Navbar = () => {
     });
   };
 
+  const handleemailverification =   ()=>{
+    const promise = authservice.createverification();
+
+    promise.then(function (response) {
+        console.log(response);
+    }, function (error) {
+        console.log(error);
+    });
+    
+  }
+
   return (
     <nav className={`navvbar ${menuOpen ? "menu-open" : ""}`}>
       <div className="navvbar-container">
@@ -117,6 +128,11 @@ const Navbar = () => {
 
                   <p>
                     <strong>Email:</strong> {userdetails.email}
+                  </p>
+                  <p>
+                      <Button onClick={handleemailverification}>
+                        Verify your email?
+                      </Button>
                   </p>
                   <Button variant="danger" onClick={handleLogout}>
                     Logout

@@ -5,4 +5,6 @@ import ContactUsPage from "./Contact_Us/ContactUsPage.jsx";
 import AboutUsPage from "../Pages/About Us/AboutUsPage.jsx"
 import LoginPage from "../Pages/Login/LoginPage.jsx"
 import SignUpPage from "../Pages/Signup/SignUpPage.jsx"
-export {OurProductsPage , HomePage, MyCartPage , ContactUsPage , AboutUsPage , LoginPage, SignUpPage};
+import VerificationPage from "./Verificationpage/VerificationPage.jsx";
+
+export {OurProductsPage , HomePage, MyCartPage , ContactUsPage , AboutUsPage , LoginPage, SignUpPage , VerificationPage};
