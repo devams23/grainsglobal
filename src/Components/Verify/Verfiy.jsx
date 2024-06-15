@@ -3,7 +3,7 @@ import authservice from "../../appwrite/auth";
 import { useNavigate } from "react-router-dom";
 function Verfiy() {
     const navigate = useNavigate();
-    const [message, setmessage] = useState(second)
+    const [message, setmessage] = useState("")
   useEffect(() => {
     const promise = authservice.updateverification()
     .then(response => {
