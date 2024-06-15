@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
+import {MdVerified}from "react-icons/md"
 import "./Navbar.css";
-import { Button, Offcanvas } from "react-bootstrap";
+import { Button, Offcanvas , Modal} from "react-bootstrap";
 import BButton from "../Button/Button";
 import { useSelector } from "react-redux";
 import authservice from "../../appwrite/auth";
@@ -11,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const cartitems = useSelector((state) => state.auth.cart);
   const userdetails = useSelector((state) => state.auth.userdata);
   const isloggedin = useSelector((state) => state.auth.status);
@@ -49,8 +51,9 @@ const Navbar = () => {
 
   const handleemailverification =   ()=>{
     const promise = authservice.createverification();
-
+    
     promise.then(function (response) {
+      setShowModal(true)
         console.log(response);
     }, function (error) {
         console.log(error);
@@ -126,14 +129,28 @@ const Navbar = () => {
                     </strong>
                   </p>
 
-                  <p>
+                <p>
                     <strong>Email:</strong> {userdetails.email}
                   </p>
-                  <p>
-                      <Button onClick={handleemailverification}>
-                        Verify your email?
-                      </Button>
-                  </p>
+
+                  
+                  
+                  {
+                      userdetails.emailVerification  ?
+(                  <p>
+                                    <div>
+                    Email Vefified <MdVerified />
+                </div>
+                  </p>) :
+              (
+                <p>
+                  <Button onClick={handleemailverification}>
+                      Verify you Email
+                  </Button>
+                </p>
+              )
+
+                    }
                   <Button variant="danger" onClick={handleLogout}>
                     Logout
                   </Button>
@@ -143,6 +160,7 @@ const Navbar = () => {
               )}
             </Offcanvas.Body>
           </Offcanvas>
+
         </div>
       </div>
       {menuOpen && (
@@ -186,6 +204,17 @@ const Navbar = () => {
           </NavLink>
         </div>
       )}
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Link Sent to your Email.</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+          <Button variant="success" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </nav>
   );
 };

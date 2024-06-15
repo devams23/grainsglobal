@@ -10,7 +10,7 @@ function Verfiy() {
         setmessage('Email verified successfully!');
         // Redirect to another page after a short delay
         setTimeout(() => {
-            navigate(''); // Change this to your desired route
+            navigate("/"); // Change this to your desired route
         }, 2000); // 2-second delay
     })
     .catch(error => {
