@@ -9,10 +9,15 @@
 
 .navvbar-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    size: 1em;
-}
+    font-size: large;
+  }
+  
+  .navvbar-logo img {
+    height: 60px; /* Adjust as needed */
+  }
+  
 
 .navvbar-links {
     display: flex;
@@ -20,7 +25,11 @@
     margin-right: 10px;
     font-size: 1em;
 }
+.logo-link{
+    display: flex;
+    justify-content: start;
 
+}
 .navvbar-links a:hover {
     color: #1f603c;
     text-shadow: 0 0 .65px #333, 0 0 .65px #333;

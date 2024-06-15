@@ -14,6 +14,7 @@ export class AuthService{
     }
     async signup({email, password, name }) {
             const registeracc =  await this.account.create(ID.unique(),email , password , name);
+            this.account.createVerification()
             return this.signin({email , password})
             
         
@@ -41,6 +42,15 @@ export class AuthService{
         // }
         // return null;
         return await this.account.get();
+    }
+    async createverification (){
+        return this.account.createVerification('https://delicosa-fz1.vercel.app/verify');
+    }
+    async updateverification (){
+        const urlParams = new URLSearchParams(window.location.search);
+        const secret = urlParams.get('secret');
+        const userId = urlParams.get('userId');
+        return this.account.updateVerification(userId , secret);
     }
 }; 
 
